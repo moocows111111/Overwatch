@@ -15,7 +15,6 @@ for image in images:
 
     cv2.imwrite(str(path) + image, crop_img)
 
-    cv2.destroyAllWindows()
-
+    
 
 
