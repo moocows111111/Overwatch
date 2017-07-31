@@ -27,6 +27,10 @@ for j in chunker(data, 4):
 # Now the next step is to be able to operate on only the numbers within each batch and do something like a simple summation
 #eg: [1+2+3+4]. Then do the same for the rest of the batces [5+6+7+8] etc. Then we name them accordingly.
 
+
+
+#everything below this is just the long way of how I will process the images once I get everything sorted:
+
 a= "frame144.jpg"
 b="frame145.jpg"
 c="frame146.jpg"
