@@ -7,7 +7,7 @@ print("this is the data ")
 print(data)
 
 # Takes existing list and segments into batches.
-def chunker(data,size):
+def chunker(data,size=5):
     for i in range(0, len(data), size):
         yield data[i:i + size]
 
@@ -15,7 +15,7 @@ def chunker(data,size):
 print('what does it look like')
 
 #4 means the batch size which is 4 numbers within each batch.  this piece of code will show me what "data" looks like after transformation.
-for j in chunker(data, 4):
+for j in chunker(data):
     print(j)
   
 #this will give a pretty good output with 
