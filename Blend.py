@@ -1,5 +1,13 @@
 from PIL import Image
 
+n = 10
+
+#this will give me the chunks I want but I dont know how to access it and operate on one chunk at a time. I might have to do def chunks instead.
+for i in range(0 , len(data), n)
+  chunks = data[i:i+n]
+  
+  
+
 #Chunk the directory
 #get chunks
 
