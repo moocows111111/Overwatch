@@ -2,9 +2,6 @@ from PIL import Image
 
 n = 10
 
-#this will give me the chunks I want but I dont know how to access it and operate on one chunk at a time. I might have to do def chunks instead.
-#for i in range(0 , len(data), n)
-  #chunks = data[i:i+n]
 #Toy example of the idea thus far.
 data = [1,2,3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
@@ -22,14 +19,7 @@ print('what does it look like')
 for j in chunker(data, 4):
     print(j)
   
-
-#Chunk the directory
-#get chunks
-
-#basic operation...
-
-
-
+#this will give a pretty good output with [1,2,3,4],[5,6,7,8]... etc but how do I make this useful?
 
 a= "frame144.jpg"
 b="frame145.jpg"
