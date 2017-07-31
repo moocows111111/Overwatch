@@ -14,7 +14,7 @@ def chunker(data,size):
 # trying to show wtf is going on here
 print('what does it look like')
 
-#4 means the batch size which is 4 numbers. what this does is show me what "data" looks like.
+#4 means the batch size which is 4 numbers within each batch.  this piece of code will show me what "data" looks like after transformation.
 for j in chunker(data, 4):
     print(j)
   
@@ -63,7 +63,7 @@ imgbld9 = Image.blend(imgbld8, img10, 0.3)
 imgbld10 = Image.blend(imgbld9, img11, 0.3)
 
 imgbld10.show()
-
+#this will show me the final results that I want.
 
 
 
