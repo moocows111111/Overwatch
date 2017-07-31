@@ -24,7 +24,7 @@ for j in chunker(data, 4):
 #[9,10,11,12]
 #[13,14,15,16]
 #[17,18,19,20]
-# Now the next step is to be able to operate on only the numbers within each batch and so something like a simple summation
+# Now the next step is to be able to operate on only the numbers within each batch and do something like a simple summation
 #eg: [1+2+3+4]. Then do the same for the rest of the batces [5+6+7+8] etc. Then we name them accordingly.
 
 a= "frame144.jpg"
