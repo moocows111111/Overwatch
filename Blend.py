@@ -1,14 +1,12 @@
 from PIL import Image
 
-n = 10
-
 #Toy example of the idea thus far.
 data = [1,2,3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
 print("this is the data ")
 print(data)
 
-
+# Takes existing list and segments into batches.
 def chunker(data,size):
     for i in range(0, len(data), size):
         yield data[i:i + size]
@@ -16,10 +14,18 @@ def chunker(data,size):
 # trying to show wtf is going on here
 print('what does it look like')
 
+#4 means the batch size which is 4 numbers. what this does is show me what "data" looks like.
 for j in chunker(data, 4):
     print(j)
   
-#this will give a pretty good output with [1,2,3,4],[5,6,7,8]... etc but how do I make this useful?
+#this will give a pretty good output with 
+#[1,2,3,4]
+#[5,6,7,8]
+#[9,10,11,12]
+#[13,14,15,16]
+#[17,18,19,20]
+# Now the next step is to be able to operate on only the numbers within each batch and so something like a simple summation
+#eg: [1+2+3+4]. Then do the same for the rest of the batces [5+6+7+8] etc. Then we name them accordingly.
 
 a= "frame144.jpg"
 b="frame145.jpg"
