@@ -1,77 +1,49 @@
 from PIL import Image
+import os.path
+import glob
 
-#Toy example of the idea thus far.
-data = [1,2,3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+#this test is for a series of 12 pictures. The goal is to divide the list into 3 parts. This should make about 4 bins for the images.
+#Then the idea is to blend the images in each bin together to make a final composite.
 
-print("this is the data ")
-print(data)
 
-# Takes existing list and segments into batches.
-def chunker(data,size=5):
-    for i in range(0, len(data), size):
-        yield data[i:i + size]
+#Lists Directory
+Dir = os.listdir('/home/moocows/PycharmProjects/Aim/blendtest')
+#Glob all jpgs
+im = glob.glob( '/home/moocows/PycharmProjects/Aim/blendtest/*.jpg')
 
-# trying to show wtf is going on here
-print('what does it look like')
+#sort jpg according to name = time as well
+imsort = sorted(im)
 
-#4 means the batch size which is 4 numbers within each batch.  this piece of code will show me what "data" looks like after transformation.
-for j in chunker(data):
+#I want to define chunker because I'll be calling from it using j.
+
+#The code below basically is saying that we'll take the entire list right now and we will parse all info into groups of 3
+def chunker(imsort,size = 3):
+    for i in range(0, len(imsort), size):
+        yield imsort[i:i + size]
+
+
+#With is I want to see what we have. So I make sure to print j.        
+print('what does it look like?')
+for j in chunker(imsort):
     print(j)
-  
-#this will give a pretty good output with 
-#[1,2,3,4]
-#[5,6,7,8]
-#[9,10,11,12]
-#[13,14,15,16]
-#[17,18,19,20]
-# Now the next step is to be able to operate on only the numbers within each batch and do something like a simple summation
-#eg: [1+2+3+4]. Then do the same for the rest of the batces [5+6+7+8] etc. Then we name them accordingly.
 
+    # so from here I realized that when you call j[0] it'll call all position 1 values in each single bin. Since we are working
+    #with 12 images we have 4 total bins, meaning we have 4 values of j[0]. This is a problem. BUT however this can be useful 
+    #because it allows the computer to do everything at once instead of going through the list systematically
+    
+    #Lets open up the images using Image from PIL
+    img1 = Image.open(j[0])
+    img2 = Image.open(j[1])
+    img3 = Image.open(j[2])
 
-
-#everything below this is just the long way of how I will process the images once I get everything sorted:
-
-a= "frame144.jpg"
-b="frame145.jpg"
-c="frame146.jpg"
-d="frame147.jpg"
-e="frame148.jpg"
-f="frame149.jpg"
-g="frame150.jpg"
-h="frame151.jpg"
-i="frame152.jpg"
-j="frame153.jpg"
-k="frame154.jpg"
-
-img1 = Image.open(a)
-img2 = Image.open(b)
-img3 = Image.open(c)
-img4 = Image.open(d)
-img5 = Image.open(e)
-img6 = Image.open(f)
-img7 = Image.open(g)
-img8 = Image.open(h)
-img9 = Image.open(i)
-img10 = Image.open(j)
-img11 = Image.open(k)
-
-imgbld1 = Image.blend(img1, img2, 0.3)
-imgbld2 = Image.blend(imgbld1, img3, 0.3)
-imgbld3 = Image.blend(imgbld2, img4, 0.3)
-imgbld4 = Image.blend(imgbld3, img5, 0.3)
-imgbld5 = Image.blend(imgbld4, img6, 0.3)
-imgbld6 = Image.blend(imgbld5, img7, 0.3)
-imgbld7 = Image.blend(imgbld6, img8, 0.3)
-imgbld8 = Image.blend(imgbld7, img9, 0.3)
-imgbld9 = Image.blend(imgbld8, img10, 0.3)
-imgbld10 = Image.blend(imgbld9, img11, 0.3)
-
-imgbld10.show()
-#this will show me the final results that I want.
-
-
-
-
-
+    #Then I blend the images using the blend function. 
+    imgbld1 = Image.blend(img1, img2, 0.3)
+    imgbld2 = Image.blend(imgbld1, img3, 0.3)
+    imgbld2.show()
+    #Now I show the final result.
+   
+    #we have success right now but however now I need to save the results. My idea is to save the results using the row number in
+    #the matrix we have created earlier. This way I dont mix up anything keep my temporal data.
+    
 
 
