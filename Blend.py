@@ -1,49 +1,50 @@
-from PIL import Image
-import os.path
 import glob
+import re
+from PIL import Image
 
-#this test is for a series of 12 pictures. The goal is to divide the list into 3 parts. This should make about 4 bins for the images.
-#Then the idea is to blend the images in each bin together to make a final composite.
+#Using the default sorted(function) creates issues with numbers like 10, 20, 100, 200 so I needed something more robust 
+#and has a naturally sorted method.
+#The function below allows me to do that and have no issues with these numbers.
+def natural_key(string_):
+    return [int(s) if s.isdigit() else s for s in re.split(r'(\d+)', string_)]
+#glob all jpg in the directory
+im = glob.glob( '*.jpg')
 
+#ensures the directory is sorted numerically based on the file name. This is incredibly important to have.
+ims = sorted(im, key=natural_key)
 
-#Lists Directory
-Dir = os.listdir('/home/moocows/PycharmProjects/Aim/blendtest')
-#Glob all jpgs
-im = glob.glob( '/home/moocows/PycharmProjects/Aim/blendtest/*.jpg')
-
-#sort jpg according to name = time as well
-imsort = sorted(im)
-
-#I want to define chunker because I'll be calling from it using j.
-
-#The code below basically is saying that we'll take the entire list right now and we will parse all info into groups of 3
-def chunker(imsort,size = 3):
-    for i in range(0, len(imsort), size):
-        yield imsort[i:i + size]
+#directory I want to save in
+outdir = '/home/moocows/PycharmProjects/Aim/Blended/'
 
 
-#With is I want to see what we have. So I make sure to print j.        
-print('what does it look like?')
-for j in chunker(imsort):
-    print(j)
+# want to take my list and blend in groups of 10. so I segregated the list as such.
+def chunker(ims,size = 10):
+    for i in range(0, len(ims), size):
+        yield ims[i:i + size]
 
-    # so from here I realized that when you call j[0] it'll call all position 1 values in each single bin. Since we are working
-    #with 12 images we have 4 total bins, meaning we have 4 values of j[0]. This is a problem. BUT however this can be useful 
-    #because it allows the computer to do everything at once instead of going through the list systematically
-    
-    #Lets open up the images using Image from PIL
-    img1 = Image.open(j[0])
+#since everything is made into chunks I want to take each one and take a picture oine at a time and blend with PIL's Blend function
+for j in chunker(ims):
+    print(j) #this allows me to debug all the functions I've implemented above.
+
+    img1 = Image.open(j[0])  #opens all the images in each chunk
     img2 = Image.open(j[1])
     img3 = Image.open(j[2])
+    img4 = Image.open(j[3])
+    img5 = Image.open(j[4])
+    img6 = Image.open(j[5])
+    img7 = Image.open(j[6])
+    img8 = Image.open(j[7])
+    img9 = Image.open(j[8])
+    img10 = Image.open(j[9])
 
-    #Then I blend the images using the blend function. 
-    imgbld1 = Image.blend(img1, img2, 0.3)
-    imgbld2 = Image.blend(imgbld1, img3, 0.3)
-    imgbld2.show()
-    #Now I show the final result.
-   
-    #we have success right now but however now I need to save the results. My idea is to save the results using the row number in
-    #the matrix we have created earlier. This way I dont mix up anything keep my temporal data.
-    
+    imgbld1 = Image.blend(img1, img2, 0.3) #.blend() can only blend 2 images at a time
+    imgbld2 = Image.blend(imgbld1, img3, 0.3) # so I feed the previous blended image into the next one.
+    imgbld3 = Image.blend(imgbld2, img4, 0.3)
+    imgbld4 = Image.blend(imgbld3, img5, 0.3)
+    imgbld5 = Image.blend(imgbld4, img6, 0.3) #its important to note that the blending causes the previous images to be degraded
+    imgbld6 = Image.blend(imgbld5, img7, 0.3) #even moreso than what the alpha depicts. This is because of the additive nature
+    imgbld7 = Image.blend(imgbld6, img8, 0.3) #of my script. This is intended to give a fade effect on the background of the images
+    imgbld8 = Image.blend(imgbld7, img9, 0.3) #to denote changes in time.
+    imgbld9 = Image.blend(imgbld8, img10, 0.3) #10 images are blended together at this point
 
-
+    imgbld9.save(outdir + str(j) + '.jpeg') #saves the images into a seperate directory.
