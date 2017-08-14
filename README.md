@@ -8,4 +8,4 @@ Crop.py is designed to crop the images from the center, but it's still being fle
 
 MoreBlend.py takes a the image directory and chunks it into groups of 10 images. Then it takes those 10 and then blends them additively so that the temporal changes are recorded in an instant!
 
-
+The classifier works pretty well. Only problem is the fluctuations in the Validation loss, which can be attributed to the small conv net that is being applied to a large input images (400x400). To reduce these you need to have a deeper net. But so far everything seems to be working despite it's size.
